@@ -1,6 +1,7 @@
 package org.setu.placemark.console.main.views
 
 import GameMemStore
+import org.setu.placemark.console.main.models.GameJSONStore
 import org.setu.placemark.console.main.models.GameModel
 
 class GameView {
@@ -15,6 +16,7 @@ class GameView {
         println(" 2. Update Game")
         println(" 3. List All Game")
         println(" 4. Search Game")
+        println(" 5. Delete Game")
         println("-1. Exit")
         println()
         print("Enter Option : ")
@@ -26,10 +28,10 @@ class GameView {
         return option
     }
 
-    fun listGames(games : GameMemStore) {
+    fun listGames(games : GameJSONStore) {
         println("List All Game")
         println()
-        games.findAll().forEach { println("ID: ${it.id}, Title: ${it.title}, Desc: ${it.description}, Age Rating: ${it.ageRating}") }
+        games.logAll()
         println()
     }
 

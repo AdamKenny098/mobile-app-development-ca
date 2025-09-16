@@ -34,6 +34,13 @@ class GameMemStore : GameStore {
         }
     }
 
+    override fun delete(game: GameModel) {
+        var foundGame = findOne(game.id!!)
+        if (foundGame != null) {
+            games.remove(game)
+        }
+    }
+
     internal fun logAll() {
         games.forEach { println("${it}") }
     }

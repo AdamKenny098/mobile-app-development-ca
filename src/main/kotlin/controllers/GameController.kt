@@ -1,17 +1,16 @@
 package org.setu.placemark.console.main.controllers
 
 import mu.KotlinLogging
-import GameMemStore
+import org.setu.placemark.console.main.models.GameJSONStore
 import org.setu.placemark.console.main.models.GameModel
 import org.setu.placemark.console.main.views.GameView
 
 class GameController {
 
-    val games = GameMemStore()
+    val games = GameJSONStore()
+
     val gameView = GameView()
     val logger = KotlinLogging.logger {}
-
-    fun menu() :Int { return gameView.menu() }
 
     fun add(){
         val aGame = GameModel()
@@ -45,6 +44,20 @@ class GameController {
             println("Game Not Updated...")
     }
 
+    fun delete() {
+        gameView.listGames(games)
+        var searchId = gameView.getId()
+        val aGame = search(searchId)
+
+        if(aGame != null) {
+            games.delete(aGame)
+            println("Game Deleted...")
+        }
+        else
+            println("Game Not Deleted...")
+    }
+
+
     fun search() {
         val aGame = search(gameView.getId())!!
         gameView.showGame(aGame)
@@ -54,13 +67,6 @@ class GameController {
         val foundGame = games.findOne(id)
         return foundGame
     }
-
-    fun dummyData() {
-        games.create(GameModel(1, "Overwatch", "A first person team based hero shooter", 12))
-        games.create(GameModel(2, "Fallout 4", "A post nuclear apocalypse survival RPG", 18))
-        games.create(GameModel(3, "Snake", "A classic", 3))
-    }
-
 
     fun start() {
         var input: Int
@@ -72,6 +78,7 @@ class GameController {
                 2 -> update()
                 3 -> list()
                 4 -> search()
+                5 -> delete()
                 -1 -> println("Exiting App")
                 else -> println("Invalid Option")
             }
