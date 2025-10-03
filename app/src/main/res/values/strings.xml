@@ -2,4 +2,11 @@
     <string name="app_name">Mobile App Development CA</string>
     <string name="button_addGame">Add Game</string>
     <string name="hint_gameTitle">Game Title</string>
+    <string name="hint_gameAgeRating">Game Age Rating</string>
+    <string name="hint_gamePlatform">Game Platform</string>
+    <string name="hint_gameGenre">Game Genre</string>
+    <string name="hint_gameReleaseDate">Game Date</string>
+    <string name="menu_addGame">Add</string>
+
+
 </resources>
