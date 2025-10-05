@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
             android:fitsSystemWindows="true"
-            app:elevation="0dip"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            app:elevation="0dip">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarAdd"
@@ -69,35 +68,36 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
-                <!-- Platform -->
+                <!-- Platforms -->
                 <EditText
                     android:id="@+id/gamePlatform"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_margin="8dp"
-                    android:autofillHints="hint"
-                    android:hint="@string/hint_gamePlatform"
-                    android:inputType="text"
+                    android:layout_height="wrap_content"
+                    android:hint="Select Platform"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none"
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
-                <!-- Genre -->
+                <!-- Genres -->
                 <EditText
                     android:id="@+id/gameGenre"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_margin="8dp"
-                    android:autofillHints="hint"
-                    android:hint="@string/hint_gameGenre"
-                    android:inputType="text"
+                    android:layout_height="wrap_content"
+                    android:hint="Select Genre"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none"
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
+
 
                 <!-- Release Date -->
                 <EditText
@@ -107,9 +107,9 @@
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
                     android:hint="@string/hint_gameReleaseDate"
-                    android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />

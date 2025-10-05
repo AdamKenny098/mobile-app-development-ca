@@ -11,9 +11,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight"
+        android:theme="@style/Theme.MobileAppDevelopmentCA"
         tools:targetApi="34">
-        <activity android:name=".activities.GameActivity"
+
+        <activity android:name=".activities.GameActivity" />
+        <activity android:name=".activities.GameListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
