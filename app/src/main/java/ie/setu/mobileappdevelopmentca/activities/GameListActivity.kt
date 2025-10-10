@@ -16,6 +16,8 @@ import ie.setu.mobileappdevelopmentca.databinding.ActivityGameListBinding
 import ie.setu.mobileappdevelopmentca.databinding.CardGameBinding
 import ie.setu.mobileappdevelopmentca.main.MainApp
 import ie.setu.mobileappdevelopmentca.models.GameModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class GameListActivity : AppCompatActivity() {
 
@@ -87,7 +89,28 @@ class GameAdapter constructor(private var games: List<GameModel>) :
 
         fun bind(game: GameModel) {
             binding.gameTitle.text = game.title
-            binding.gameAgeRating.text = game.ageRating.toString()
+
+            binding.gameGenre.text = if (game.genre.isNotEmpty()) {
+                game.genre.joinToString(", ")
+            } else {
+                "Unknown Genre"
+            }
+
+            binding.gamePlatform.text = if (game.platform.isNotEmpty()) {
+                game.platform.joinToString(", ")
+            } else {
+                "Unknown Platform"
+            }
+
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            binding.gameReleaseDate.text = dateFormat.format(game.releaseDate)
+
+            binding.gameAgeRating.text = if (game.ageRating > 0) {
+                "Age Rating: ${game.ageRating}+"
+            } else {
+                "N/A"
+            }
+
         }
     }
 }

@@ -21,11 +21,38 @@
             tools:text="A Title" />
 
         <TextView
-            android:id="@+id/gameAgeRating"
+            android:id="@+id/gamePlatform"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/gameTitle"
-            tools:text="A Description" />
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="8dp"
+            tools:text="A Platform" />
+
+        <TextView
+            android:id="@+id/gameGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/gameGenre"
+            android:layout_alignParentEnd="true"
+            tools:text="A Genre" />
+
+        <TextView
+            android:id="@+id/gameReleaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gamePlatform"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="8dp"
+            tools:text="A Release Date" />
+
+        <TextView
+            android:id="@+id/gameAgeRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/gameReleaseDate"
+            android:layout_alignParentEnd="true"
+            tools:text="An Age Rating" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

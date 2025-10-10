@@ -72,7 +72,8 @@
                 <EditText
                     android:id="@+id/gamePlatform"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
                     android:hint="Select Platform"
                     android:focusable="false"
                     android:clickable="true"
@@ -87,7 +88,8 @@
                 <EditText
                     android:id="@+id/gameGenre"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
                     android:hint="Select Genre"
                     android:focusable="false"
                     android:clickable="true"
