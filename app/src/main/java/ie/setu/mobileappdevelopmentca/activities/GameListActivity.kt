@@ -31,12 +31,32 @@ class GameListActivity : AppCompatActivity() {
 
         app = application as MainApp
 
+        setSupportActionBar(binding.toolbar)
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // --- RecyclerView setup ---
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = GameAdapter(app.games)
 
-        binding.toolbar.title = title
-        setSupportActionBar(binding.toolbar)
+        // --- Filter buttons setup ---
+        binding.btnAllGames.setOnClickListener {
+            binding.toolbar.title = "All Games"
+            binding.recyclerView.adapter = GameAdapter(app.games)
+        }
+
+        binding.btnPlaying.setOnClickListener {
+            val filtered = app.games.filter { it.status == "Currently Playing" }
+            binding.toolbar.title = "Currently Playing"
+            binding.recyclerView.adapter = GameAdapter(filtered)
+        }
+
+        binding.btnCompleted.setOnClickListener {
+            val filtered = app.games.filter { it.status == "Completed" }
+            binding.toolbar.title = "Completed Games"
+            binding.recyclerView.adapter = GameAdapter(filtered)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -52,6 +72,12 @@ class GameListActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    //Sets a back button out of GameListActivity back to MainMenuActivity
+    override fun onSupportNavigateUp(): Boolean {
+        finish() // closes this activity and returns to the main menu
+        return true
     }
 
     private val getResult =
@@ -70,9 +96,11 @@ class GameListActivity : AppCompatActivity() {
 class GameAdapter constructor(private var games: List<GameModel>) :
     RecyclerView.Adapter<GameAdapter.MainHolder>() {
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardGameBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
+
 
         return MainHolder(binding)
     }
@@ -110,6 +138,8 @@ class GameAdapter constructor(private var games: List<GameModel>) :
             } else {
                 "N/A"
             }
+
+
 
         }
     }

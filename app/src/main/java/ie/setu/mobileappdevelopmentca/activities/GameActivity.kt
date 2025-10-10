@@ -20,7 +20,7 @@ class GameActivity : AppCompatActivity() {
     val ageRatingOptions = arrayOf(3,7,12,15,18,21, "PG", "M", "T")
     val platformOptions = arrayOf("PC", "Xbox", "PlayStation", "Nintendo Switch", "Mobile")
     val genreOptions = arrayOf("Action", "Adventure", "RPG", "Simulation", "Strategy", "Shooter", "Horror")
-
+    val statusOptions = arrayOf("Currently Playing", "Completed", "All")
 
     var game = GameModel(
         title = "Elden Ring",
@@ -89,6 +89,16 @@ class GameActivity : AppCompatActivity() {
             datePicker.show()
         }
 
+
+        binding.gameStatus.setOnClickListener {
+            val builder = android.app.AlertDialog.Builder(this)
+            builder.setTitle("Choose a Status")
+            builder.setItems(statusOptions) { _, which ->
+                binding.gameStatus.setText(statusOptions[which])
+            }
+            builder.show()
+        }
+
         binding.btnAdd.setOnClickListener() {
             game.title = binding.gameTitle.text.toString()
             game.ageRating = binding.gameAgeRating.text.toString().toIntOrNull() ?: 0 //Defaults to 0
@@ -97,6 +107,9 @@ class GameActivity : AppCompatActivity() {
 
             val formatter = SimpleDateFormat("dd/MM/yyyy")
             game.releaseDate = formatter.parse(binding.gameReleaseDate.text.toString())
+
+            game.status = binding.gameStatus.text.toString()
+
 
             if (game.title.isNotEmpty()) {
                 app!!.games.add(game.copy())
