@@ -112,12 +112,8 @@ class GameActivity : AppCompatActivity() {
 
 
             if (game.title.isNotEmpty()) {
-                app!!.games.add(game.copy())
+                app!!.games.create(game.copy())
                 i("add Button Pressed: ${game}")
-                for (i in app!!.games.indices)
-                {
-                    i("Placemark[$i]:${this.app!!.games[i]}")
-                }
                 setResult(RESULT_OK)
                 finish()
             }
