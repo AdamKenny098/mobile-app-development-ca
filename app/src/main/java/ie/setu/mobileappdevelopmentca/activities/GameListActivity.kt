@@ -36,27 +36,16 @@ class GameListActivity : AppCompatActivity(), GameListener {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 
-        // --- Filter buttons setup ---
-        binding.btnAllGames.setOnClickListener {
-            binding.toolbar.title = "All Games"
-            binding.recyclerView.adapter = GameAdapter(app.games.findAll(), this)
+        val listType = intent.getStringExtra("list_type") ?: "All"
+
+        val gamesToDisplay = when (listType) {
+            "Currently Playing" -> app.games.findAll().filter { it.status == "Currently Playing" }
+            "Completed" -> app.games.findAll().filter { it.status == "Completed" }
+            else -> app.games.findAll()
         }
 
-        binding.btnPlaying.setOnClickListener {
-            val filtered = app.games.findAll().filter { it.status == "Currently Playing" }
-            binding.toolbar.title = "Currently Playing"
-            binding.recyclerView.adapter = GameAdapter(
-                filtered, this
-            )
-        }
-
-        binding.btnCompleted.setOnClickListener {
-            val filtered = app.games.findAll().filter { it.status == "Completed" }
-            binding.toolbar.title = "Completed Games"
-            binding.recyclerView.adapter = GameAdapter(
-                filtered, this
-            )
-        }
+        binding.toolbar.title = listType
+        binding.recyclerView.adapter = GameAdapter(gamesToDisplay, this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -76,7 +65,7 @@ class GameListActivity : AppCompatActivity(), GameListener {
 
     //Sets a back button out of GameListActivity back to MainMenuActivity
     override fun onSupportNavigateUp(): Boolean {
-        finish() // closes this activity and returns to the main menu
+        finish() // closes this activity and goes back to the previous one
         return true
     }
 
@@ -91,6 +80,7 @@ class GameListActivity : AppCompatActivity(), GameListener {
 
     override fun onGameClick(game: GameModel) {
         val launcherIntent = Intent(this, GameActivity::class.java)
+        launcherIntent.putExtra("game_edit", game)
         getClickResult.launch(launcherIntent)
     }
 
@@ -103,6 +93,8 @@ class GameListActivity : AppCompatActivity(), GameListener {
                 notifyItemRangeChanged(0,app.games.findAll().size)
             }
         }
+
+
 
 
 

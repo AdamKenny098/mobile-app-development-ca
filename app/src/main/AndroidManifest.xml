@@ -15,7 +15,8 @@
         tools:targetApi="34">
 
         <activity android:name=".activities.GameActivity" />
-        <activity android:name=".activities.GameListActivity"
+        <activity android:name=".activities.GameListActivity"/>
+        <activity android:name=".activities.MainMenuActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
