@@ -21,14 +21,12 @@ class MainMenuActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // “Currently Playing” button → Launch GameListActivity filtered
         binding.btnPlaying.setOnClickListener {
             val intent = Intent(this, GameListActivity::class.java)
             intent.putExtra("list_type", "Currently Playing")
             startActivity(intent)
         }
 
-        // “Completed Games” button → Launch GameListActivity filtered
         binding.btnCompleted.setOnClickListener {
             val intent = Intent(this, GameListActivity::class.java)
             intent.putExtra("list_type", "Completed")
