@@ -72,7 +72,8 @@
                 <EditText
                     android:id="@+id/gamePlatform"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
                     android:hint="Select Platform"
                     android:focusable="false"
                     android:clickable="true"
@@ -87,7 +88,8 @@
                 <EditText
                     android:id="@+id/gameGenre"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
                     android:hint="Select Genre"
                     android:focusable="false"
                     android:clickable="true"
@@ -114,6 +116,21 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
+                <!-- Game Status -->
+                <EditText
+                    android:id="@+id/gameStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:hint="Select Status"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
+
                 <Button
                     android:id="@+id/btnAdd"
                     android:layout_width="match_parent"
@@ -125,6 +142,8 @@
                     android:text="@string/button_addGame"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
+
+
             </LinearLayout>
         </ScrollView>
 

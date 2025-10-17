@@ -7,6 +7,41 @@
     android:layout_height="match_parent"
     tools:context=".activities.GameListActivity">
 
+
+    <LinearLayout
+        android:id="@+id/filterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp"
+        android:background="@color/colorAccent"
+        app:layout_anchor="@id/toolbar"
+        app:layout_anchorGravity="bottom">
+
+        <Button
+            android:id="@+id/btnAllGames"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="All Games" />
+
+        <Button
+            android:id="@+id/btnPlaying"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Currently Playing" />
+
+        <Button
+            android:id="@+id/btnCompleted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Completed" />
+    </LinearLayout>
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,3 +64,4 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
