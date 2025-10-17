@@ -136,6 +136,7 @@ class GameActivity : AppCompatActivity() {
                     app.games.create(game.copy())
                     i("add Button Pressed: ${game}")
                 }
+                app.games.save()
                 setResult(RESULT_OK)
                 finish()
             }
@@ -144,6 +145,7 @@ class GameActivity : AppCompatActivity() {
         binding.btnDelete.setOnClickListener {
             app.games.delete(game)
             i("Deleted Game: ${game.title}")
+            app.games.save()
             setResult(RESULT_OK)
             finish()
         }
