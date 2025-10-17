@@ -36,6 +36,18 @@ class GameMemStore : GameStore {
         }
     }
 
+    override fun delete(game: GameModel)
+    {
+        //Similar to C# removeAll method, loops through and deletes all matching
+        val removed = games.removeIf { it.id == game.id }
+        if (removed){
+             i("Deleted game: ${game.title}")
+        }
+        else{
+            i("Could not find game to delete")
+        }
+    }
+
     fun logAll() {
         games.forEach{ i("$it") }
     }

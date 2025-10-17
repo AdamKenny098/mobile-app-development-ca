@@ -3,7 +3,6 @@ package ie.setu.mobileappdevelopmentca.activities
 import android.app.AlertDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import ie.setu.mobileappdevelopmentca.databinding.ActivityGameBinding
 import ie.setu.mobileappdevelopmentca.main.MainApp
 import ie.setu.mobileappdevelopmentca.models.GameModel
@@ -12,9 +11,7 @@ import java.util.Calendar
 import java.text.SimpleDateFormat
 
 import android.app.DatePickerDialog
-import android.view.Menu
-import android.view.MenuItem
-import ie.setu.mobileappdevelopmentca.R
+import android.view.View
 
 class GameActivity : AppCompatActivity() {
 
@@ -50,6 +47,9 @@ class GameActivity : AppCompatActivity() {
             binding.gameReleaseDate.setText(SimpleDateFormat("dd/MM/yyyy").format(game.releaseDate))
             binding.gameStatus.setText(game.status)
             binding.btnAdd.text = "Save Changes"
+            binding.btnDelete.visibility = View.VISIBLE
+        } else {
+            binding.btnDelete.visibility = View.GONE
         }
 
         // PLATFORM PICKER
@@ -140,5 +140,13 @@ class GameActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+        binding.btnDelete.setOnClickListener {
+            app.games.delete(game)
+            i("Deleted Game: ${game.title}")
+            setResult(RESULT_OK)
+            finish()
+        }
+
     }
 }
