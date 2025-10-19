@@ -40,6 +40,8 @@ class GameActivity : AppCompatActivity() {
 
         if (intent.hasExtra("game_edit")) {
             edit = true
+            game = intent.extras?.getParcelable("game_edit")!!
+
             binding.gameTitle.setText(game.title)
             binding.gameAgeRating.setText(game.ageRating.toString())
             binding.gamePlatform.setText(game.platform.joinToString(", "))
@@ -129,7 +131,7 @@ class GameActivity : AppCompatActivity() {
 
             if (game.title.isNotEmpty()) {
                 if(edit){
-                    app.games.update(game.copy())
+                    app.games.update(game)
                     i("Updated Game: ${game}")
                 }
                 else if(!edit) {
