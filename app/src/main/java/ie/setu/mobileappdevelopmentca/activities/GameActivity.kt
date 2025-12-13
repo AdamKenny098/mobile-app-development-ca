@@ -18,6 +18,7 @@ class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     lateinit var app: MainApp
     private var game = GameModel()
+    private var edit = false
 
     // List of options for platform and genre
     val ageRatingOptions = arrayOf(3, 7, 12, 15, 18, 21, "PG", "M", "T")
@@ -35,18 +36,14 @@ class GameActivity : AppCompatActivity() {
         setContentView(binding.root)
         app = application as MainApp
 
+        edit = intent.hasExtra("game_edit")
         setSupportActionBar(binding.toolbarAdd)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
-
+        supportActionBar?.title = if (edit) "Edit Game" else "Add Game"
 
         i("Game Activity started...")
 
-        var edit = false
-
-        if (intent.hasExtra("game_edit")) {
-            edit = true
+        if (edit) {
             game = intent.extras?.getParcelable("game_edit")!!
 
             binding.gameTitle.setText(game.title)
