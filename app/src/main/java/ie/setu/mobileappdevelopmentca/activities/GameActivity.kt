@@ -21,7 +21,7 @@ class GameActivity : AppCompatActivity() {
     private var edit = false
 
     // List of options for platform and genre
-    val ageRatingOptions = arrayOf(3, 7, 12, 15, 18, 21, "PG", "M", "T")
+    val ageRatingOptions = arrayOf("3", "7", "12", "15", "18", "21", "PG", "G", "M")
     val platformOptions = arrayOf("PC", "Xbox", "PlayStation", "Nintendo Switch", "Mobile")
     val genreOptions =
         arrayOf("Action", "Adventure", "RPG", "Simulation", "Strategy", "Shooter", "Horror")
@@ -57,6 +57,17 @@ class GameActivity : AppCompatActivity() {
         } else {
             binding.btnDelete.visibility = View.GONE
         }
+
+        binding.gameAgeRating.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Choose an Age Rating")
+            builder.setItems(ageRatingOptions) { _, x ->
+                // Set chosen item to the text field
+                binding.gamePlatform.setText(ageRatingOptions[x])
+            }
+            builder.show()
+        }
+
 
         // PLATFORM PICKER
         binding.gamePlatform.setOnClickListener {
