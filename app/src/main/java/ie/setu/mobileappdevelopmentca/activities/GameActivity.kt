@@ -18,6 +18,7 @@ class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     lateinit var app: MainApp
     private var game = GameModel()
+    private var edit = false
 
     // List of options for platform and genre
     val ageRatingOptions = arrayOf(3, 7, 12, 15, 18, 21, "PG", "M", "T")
@@ -34,12 +35,17 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
         app = application as MainApp
+
+        edit = intent.hasExtra("game_edit")
+        setSupportActionBar(binding.toolbarAdd)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = if (edit) "Edit Game" else "Add Game"
+
         i("Game Activity started...")
 
-        var edit = false
+        if (edit) {
+            game = intent.extras?.getParcelable("game_edit")!!
 
-        if (intent.hasExtra("game_edit")) {
-            edit = true
             binding.gameTitle.setText(game.title)
             binding.gameAgeRating.setText(game.ageRating.toString())
             binding.gamePlatform.setText(game.platform.joinToString(", "))
@@ -114,41 +120,78 @@ class GameActivity : AppCompatActivity() {
             builder.show()
         }
 
-        binding.btnAdd.setOnClickListener() {
-            game.title = binding.gameTitle.text.toString()
-            game.ageRating =
-                binding.gameAgeRating.text.toString().toIntOrNull() ?: 0 //Defaults to 0
-            game.platform = arrayOf(binding.gamePlatform.text.toString())
-            game.genre = arrayOf(binding.gameGenre.text.toString())
-
-            val formatter = SimpleDateFormat("dd/MM/yyyy")
-            game.releaseDate = formatter.parse(binding.gameReleaseDate.text.toString())
-
-            game.status = binding.gameStatus.text.toString()
-
-
-            if (game.title.isNotEmpty()) {
-                if(edit){
-                    app.games.update(game.copy())
-                    i("Updated Game: ${game}")
-                }
-                else if(!edit) {
-                    app.games.create(game.copy())
-                    i("add Button Pressed: ${game}")
-                }
-                app.games.save()
-                setResult(RESULT_OK)
-                finish()
+        binding.btnAdd.setOnClickListener()
+        {
+            val title = binding.gameTitle.text.toString().trim()
+            if (title.isEmpty()) {
+                binding.gameTitle.error = "Title is required"
+                return@setOnClickListener
             }
+
+            val ageText = binding.gameAgeRating.text.toString().trim()
+            if (ageText.isEmpty()) {
+                binding.gameAgeRating.error = "Age rating must be selected"
+                return@setOnClickListener
+            }
+
+            val platformText = binding.gamePlatform.text.toString().trim()
+            if (platformText.isEmpty()) {
+                binding.gamePlatform.error = "Platform must be selected"
+                return@setOnClickListener
+            }
+
+            val genreText = binding.gameGenre.text.toString().trim()
+            if (genreText.isEmpty()) {
+                binding.gameGenre.error = "Genre must be selected"
+                return@setOnClickListener
+            }
+
+            val statusText = binding.gameStatus.text.toString().trim()
+            if (statusText.isEmpty()) {
+                binding.gameStatus.error = "Status must be selected"
+                return@setOnClickListener
+            }
+
+            val dateText = binding.gameReleaseDate.text.toString().trim()
+            if (dateText.isEmpty()) {
+                binding.gameReleaseDate.error = "Release date must be selected"
+                return@setOnClickListener
+            }
+
+            game.title = title
+            game.ageRating = ageText.toInt()
+            game.platform = arrayOf(platformText)
+            game.genre = arrayOf(genreText)
+            game.status = statusText
+            game.releaseDate = SimpleDateFormat("dd/MM/yyyy").parse(dateText)
+
+            if (edit)
+            {
+                app.games.update(game)
+            }
+            else
+            {
+                app.games.create(game.copy())
+            }
+
+            app.games.save()
+            setResult(RESULT_OK)
+            finish()
         }
 
         binding.btnDelete.setOnClickListener {
             app.games.delete(game)
-            i("Deleted Game: ${game.title}")
             app.games.save()
             setResult(RESULT_OK)
             finish()
         }
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        setResult(RESULT_CANCELED) // treat as cancel
+        finish()
+        return true
+    }
+
 }
