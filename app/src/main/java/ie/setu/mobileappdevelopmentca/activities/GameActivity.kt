@@ -34,6 +34,13 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
         app = application as MainApp
+
+        setSupportActionBar(binding.toolbarAdd)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+
+
         i("Game Activity started...")
 
         var edit = false
@@ -153,4 +160,11 @@ class GameActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        setResult(RESULT_CANCELED) // treat as cancel
+        finish()
+        return true
+    }
+
 }
