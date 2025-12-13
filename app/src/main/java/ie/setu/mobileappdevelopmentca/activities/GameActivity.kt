@@ -120,37 +120,67 @@ class GameActivity : AppCompatActivity() {
             builder.show()
         }
 
-        binding.btnAdd.setOnClickListener() {
-            game.title = binding.gameTitle.text.toString()
-            game.ageRating =
-                binding.gameAgeRating.text.toString().toIntOrNull() ?: 0 //Defaults to 0
-            game.platform = arrayOf(binding.gamePlatform.text.toString())
-            game.genre = arrayOf(binding.gameGenre.text.toString())
-
-            val formatter = SimpleDateFormat("dd/MM/yyyy")
-            game.releaseDate = formatter.parse(binding.gameReleaseDate.text.toString())
-
-            game.status = binding.gameStatus.text.toString()
-
-
-            if (game.title.isNotEmpty()) {
-                if(edit){
-                    app.games.update(game)
-                    i("Updated Game: ${game}")
-                }
-                else if(!edit) {
-                    app.games.create(game.copy())
-                    i("add Button Pressed: ${game}")
-                }
-                app.games.save()
-                setResult(RESULT_OK)
-                finish()
+        binding.btnAdd.setOnClickListener()
+        {
+            val title = binding.gameTitle.text.toString().trim()
+            if (title.isEmpty()) {
+                binding.gameTitle.error = "Title is required"
+                return@setOnClickListener
             }
+
+            val ageText = binding.gameAgeRating.text.toString().trim()
+            if (ageText.isEmpty()) {
+                binding.gameAgeRating.error = "Age rating must be selected"
+                return@setOnClickListener
+            }
+
+            val platformText = binding.gamePlatform.text.toString().trim()
+            if (platformText.isEmpty()) {
+                binding.gamePlatform.error = "Platform must be selected"
+                return@setOnClickListener
+            }
+
+            val genreText = binding.gameGenre.text.toString().trim()
+            if (genreText.isEmpty()) {
+                binding.gameGenre.error = "Genre must be selected"
+                return@setOnClickListener
+            }
+
+            val statusText = binding.gameStatus.text.toString().trim()
+            if (statusText.isEmpty()) {
+                binding.gameStatus.error = "Status must be selected"
+                return@setOnClickListener
+            }
+
+            val dateText = binding.gameReleaseDate.text.toString().trim()
+            if (dateText.isEmpty()) {
+                binding.gameReleaseDate.error = "Release date must be selected"
+                return@setOnClickListener
+            }
+
+            game.title = title
+            game.ageRating = ageText.toInt()
+            game.platform = arrayOf(platformText)
+            game.genre = arrayOf(genreText)
+            game.status = statusText
+            game.releaseDate = SimpleDateFormat("dd/MM/yyyy").parse(dateText)
+
+            if (edit)
+            {
+                app.games.update(game)
+            }
+            else
+            {
+                app.games.create(game.copy())
+            }
+
+            app.games.save()
+            setResult(RESULT_OK)
+            finish()
         }
 
         binding.btnDelete.setOnClickListener {
             app.games.delete(game)
-            i("Deleted Game: ${game.title}")
             app.games.save()
             setResult(RESULT_OK)
             finish()
