@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "828979223142",
+    "project_id": "mobileappdevca",
+    "storage_bucket": "mobileappdevca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828979223142:android:280de41dffa5071bd7aba7",
+        "android_client_info": {
+          "package_name": "ie.setu.mobileappdevelopmentca"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcACq0aP3vBqQ2m0Lh92R1THU7c4aEyA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
