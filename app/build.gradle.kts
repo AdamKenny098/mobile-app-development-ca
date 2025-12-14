@@ -57,7 +57,7 @@ dependencies {
     implementation(libs.timber)
     implementation("com.google.code.gson:gson:2.10.1")
     // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
 
 
     // TODO: Add the dependencies for Firebase products you want to use
