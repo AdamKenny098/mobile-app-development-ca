@@ -46,6 +46,15 @@ class RegisterActivity : AppCompatActivity() {
                             task.exception?.message ?: "Registration failed"
                     }
                 }
+
+            binding.logInLink.setOnClickListener {
+                val intent = Intent()
+                intent.setClassName(
+                    this,
+                    "ie.setu.mobileappdevelopmentca.activities.LoginActivity"
+                )
+                startActivity(intent)
+            }
         }
     }
 }

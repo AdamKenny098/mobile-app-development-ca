@@ -70,6 +70,14 @@
                 android:text="Register"
                 android:layout_marginTop="16dp" />
 
+            <TextView
+                android:id="@+id/logInLink"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_margin="8dp"
+                android:text="No account? Register"
+                android:textColor="?android:attr/textColorLink" />
+
 
         </LinearLayout>
     </ScrollView>
