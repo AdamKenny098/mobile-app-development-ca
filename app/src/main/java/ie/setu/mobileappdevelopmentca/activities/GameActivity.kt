@@ -21,11 +21,11 @@ class GameActivity : AppCompatActivity() {
     private var edit = false
 
     // List of options for platform and genre
-    val ageRatingOptions = arrayOf("3", "7", "12", "15", "18", "21", "PG", "G", "M")
+    val ageRatingOptions = arrayOf("3", "7", "12", "15", "18", "21")
     val platformOptions = arrayOf("PC", "Xbox", "PlayStation", "Nintendo Switch", "Mobile")
     val genreOptions =
         arrayOf("Action", "Adventure", "RPG", "Simulation", "Strategy", "Shooter", "Horror")
-    val statusOptions = arrayOf("Currently Playing", "Completed", "All")
+    val statusOptions = arrayOf("Currently Playing", "Completed")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,8 @@ class GameActivity : AppCompatActivity() {
             builder.setTitle("Choose an Age Rating")
             builder.setItems(ageRatingOptions) { _, x ->
                 // Set chosen item to the text field
-                binding.gamePlatform.setText(ageRatingOptions[x])
+                binding.gameAgeRating.setText(ageRatingOptions[x])
+
             }
             builder.show()
         }
@@ -171,28 +172,23 @@ class GameActivity : AppCompatActivity() {
 
             game.title = title
             game.ageRating = ageText.toInt()
-            game.platform = arrayOf(platformText)
-            game.genre = arrayOf(genreText)
+            game.platform = listOf(platformText)
+            game.genre = listOf(genreText)
             game.status = statusText
             game.releaseDate = SimpleDateFormat("dd/MM/yyyy").parse(dateText)
 
-            if (edit)
-            {
-                app.games.update(game)
-            }
-            else
-            {
-                app.games.create(game.copy())
+            if (edit) {
+                app.firestoreGames.update(game)
+            } else {
+                app.firestoreGames.create(game)
             }
 
-            app.games.save()
             setResult(RESULT_OK)
             finish()
         }
 
         binding.btnDelete.setOnClickListener {
-            app.games.delete(game)
-            app.games.save()
+            app.firestoreGames.delete(game)
             setResult(RESULT_OK)
             finish()
         }
