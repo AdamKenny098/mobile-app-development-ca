@@ -34,17 +34,13 @@ class GameListActivity : AppCompatActivity(), GameListener {
     val layoutManager = LinearLayoutManager(this)
     binding.recyclerView.layoutManager = layoutManager
 
-    val listType = intent.getStringExtra("list_type") ?: "All"
+        val listType = intent.getStringExtra("list_type") ?: "All"
 
-    val gamesToDisplay = when (listType) {
-        "Currently Playing" -> app.games.findAll().filter { it.status == "Currently Playing" }
-        "Completed" -> app.games.findAll().filter { it.status == "Completed" }
-        else -> app.games.findAll()
+        binding.toolbar.title = listType
+        binding.recyclerView.adapter = GameAdapter(emptyList(), this) //Give an empty list for the data to go into
+
+        reloadGames()
     }
-
-    binding.toolbar.title = listType
-    binding.recyclerView.adapter = GameAdapter(gamesToDisplay, this)
-}
 
 override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_main, menu)
@@ -72,7 +68,7 @@ private val getResult =
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {
-            (binding.recyclerView.adapter)?.notifyItemRangeChanged(0, app.games.findAll().size)
+            reloadGames()
         }
     }
 
@@ -87,16 +83,24 @@ private val getClickResult =
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {
-            (binding.recyclerView.adapter)?.
-            notifyItemRangeChanged(0,app.games.findAll().size)
+            reloadGames()
         }
     }
 
+    private fun reloadGames() {
+        val adapter = binding.recyclerView.adapter
+        if(adapter !is GameAdapter) {
+            return
+        }
+        app.firestoreGames.fetchAll { games ->
+            val listType = intent.getStringExtra("list_type") ?: "All"
 
-
-
-
+            val filteredGames = when (listType) {
+                "Currently Playing" -> games.filter { it.status == "Currently Playing" }
+                "Completed" -> games.filter { it.status == "Completed" }
+                else -> games
+            }
+            adapter.update(filteredGames)
+        }
+    }
 }
-
-
-

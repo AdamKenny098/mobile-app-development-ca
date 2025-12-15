@@ -66,4 +66,10 @@ private val listener: GameListener) :
 
         }
     }
+
+    fun update(newGames: List<GameModel>) {
+        games = newGames
+        notifyDataSetChanged() //refreshes RecyclerView
+    }
+
 }

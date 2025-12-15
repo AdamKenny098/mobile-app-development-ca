@@ -16,7 +16,10 @@
 
         <activity android:name=".activities.GameActivity" />
         <activity android:name=".activities.GameListActivity"/>
-        <activity android:name=".activities.MainMenuActivity"
+        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.RegisterActivity"/>
+        <activity android:name=".activities.MainMenuActivity"/>
+        <activity android:name=".activities.RouterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
