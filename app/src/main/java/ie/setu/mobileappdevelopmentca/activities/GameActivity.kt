@@ -33,9 +33,6 @@ class GameActivity : AppCompatActivity() {
         arrayOf("Action", "Adventure", "RPG", "Simulation", "Strategy", "Shooter", "Horror")
     val statusOptions = arrayOf("Currently Playing", "Completed")
 
-    var location = Location(52.245696, -7.139102, 15f)
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -145,7 +142,7 @@ class GameActivity : AppCompatActivity() {
 
         binding.gameLocation.setOnClickListener {
             val launcherIntent = Intent(this, MapActivity::class.java)
-                .putExtra("location", location)
+                .putExtra("location", game.location)
             mapIntentLauncher.launch(launcherIntent)
         }
 
@@ -227,8 +224,8 @@ class GameActivity : AppCompatActivity() {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
                             //location = result.data!!.extras?.getParcelable("location",Location::class.java)!!
-                            location = result.data!!.extras?.getParcelable("location")!!
-                            i("Location == $location")
+                            game.location = result.data!!.extras?.getParcelable("location")!!
+                            i("Location == $game.location")
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

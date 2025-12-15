@@ -45,7 +45,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarker
         map = googleMap
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
-            .title("Placemark")
+            .title("Associated Memory")
             .snippet("GPS : $loc")
             .draggable(true)
             .position(loc)

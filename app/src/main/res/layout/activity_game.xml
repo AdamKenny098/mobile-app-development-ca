@@ -142,7 +142,7 @@
                     android:padding="8dp"
                     android:stateListAnimator="@null"
                     android:textColor="@color/colorPrimary"
-                    android:hint="Select Location"
+                    android:hint="Associated Location"
                     android:textSize="16sp"/>
 
                 <Button
