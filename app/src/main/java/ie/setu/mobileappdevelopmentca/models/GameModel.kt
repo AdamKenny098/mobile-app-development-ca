@@ -14,3 +14,8 @@ data class GameModel(var id: Long = 0,
                      var releaseDate: Date = Calendar.getInstance().time,
                      var status: String ="") : Parcelable{
 }
+
+@Parcelize
+data class Location(var lat: Double = 0.0,
+                    var lng: Double = 0.0,
+                    var zoom: Float = 0f) : Parcelable
