@@ -11,11 +11,16 @@ import java.util.Calendar
 import java.text.SimpleDateFormat
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 
 class GameActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGameBinding
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+
     lateinit var app: MainApp
     private var game = GameModel()
     private var edit = false
@@ -34,6 +39,9 @@ class GameActivity : AppCompatActivity() {
         //These come first
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        registerMapCallback()
+
         app = application as MainApp
 
         edit = intent.hasExtra("game_edit")
@@ -132,6 +140,11 @@ class GameActivity : AppCompatActivity() {
             builder.show()
         }
 
+        binding.gameLocation.setOnClickListener {
+            val launcherIntent = Intent(this, MapActivity::class.java)
+            mapIntentLauncher.launch(launcherIntent)
+        }
+
         binding.btnAdd.setOnClickListener()
         {
             val title = binding.gameTitle.text.toString().trim()
@@ -200,5 +213,12 @@ class GameActivity : AppCompatActivity() {
         finish()
         return true
     }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { i("Map Loaded") }
+    }
+
 
 }
