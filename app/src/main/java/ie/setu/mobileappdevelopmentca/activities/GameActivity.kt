@@ -11,11 +11,17 @@ import java.util.Calendar
 import java.text.SimpleDateFormat
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import ie.setu.mobileappdevelopmentca.models.Location
 
 class GameActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGameBinding
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+
     lateinit var app: MainApp
     private var game = GameModel()
     private var edit = false
@@ -27,13 +33,15 @@ class GameActivity : AppCompatActivity() {
         arrayOf("Action", "Adventure", "RPG", "Simulation", "Strategy", "Shooter", "Horror")
     val statusOptions = arrayOf("Currently Playing", "Completed")
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //These come first
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        registerMapCallback()
+
         app = application as MainApp
 
         edit = intent.hasExtra("game_edit")
@@ -132,6 +140,12 @@ class GameActivity : AppCompatActivity() {
             builder.show()
         }
 
+        binding.gameLocation.setOnClickListener {
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", game.location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
+
         binding.btnAdd.setOnClickListener()
         {
             val title = binding.gameTitle.text.toString().trim()
@@ -200,5 +214,25 @@ class GameActivity : AppCompatActivity() {
         finish()
         return true
     }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            //location = result.data!!.extras?.getParcelable("location",Location::class.java)!!
+                            game.location = result.data!!.extras?.getParcelable("location")!!
+                            i("Location == $game.location")
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
+
 
 }

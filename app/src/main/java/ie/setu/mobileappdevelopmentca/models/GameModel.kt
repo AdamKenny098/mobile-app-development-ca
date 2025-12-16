@@ -12,5 +12,11 @@ data class GameModel(var id: Long = 0,
                      var platform: List<String> = emptyList(),
                      var genre: List<String> = emptyList(),
                      var releaseDate: Date = Calendar.getInstance().time,
-                     var status: String ="") : Parcelable{
+                     var status: String ="",
+                     var location: Location = Location()): Parcelable{
 }
+
+@Parcelize
+data class Location(var lat: Double = 0.0,
+                    var lng: Double = 0.0,
+                    var zoom: Float = 0f) : Parcelable

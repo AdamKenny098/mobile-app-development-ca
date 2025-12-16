@@ -7,6 +7,7 @@
     <string name="hint_gameGenre">Game Genre</string>
     <string name="hint_gameReleaseDate">Game Date</string>
     <string name="menu_addGame">Add</string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 
 </resources>
